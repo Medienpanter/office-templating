@@ -1,0 +1,24 @@
+<div class="main-content">
+    <div class="container-fluid">
+      <h2>My documents</h2>
+      <div *ngFor="let doc of myDocs" style="border: 2px black solid;">
+        <button class="btn btn-rose btn-fill" (click)="deleteDocument(doc._id)">Delete</button>
+        <div *ngFor="let version of doc.versions" style="border: 1px grey solid">
+          Version: {{version.majorVersion}}.{{version.minorVersion}}
+          File name: {{version.originalName}}
+          Create date: {{version.createdAt | date}}
+          <button class="btn btn-round btn-fill" (click)="deleteDocumentVersion(doc._id, version._id)">Delete</button>
+          <button class="btn btn-round btn-fill" (click)="download(version.serverName)">Download</button>
+        </div>
+      </div>
+
+      <h2>Add new document</h2>
+      <input type="file" (change)="onFileSelect($event.target)"/>
+      <div *ngIf="error" class="error-msg">{{ error }}</div>
+
+      <button *ngIf="documentParsed" class="btn btn-rose" (click)="uploadNewDocument()">Dodaj dokument</button>
+
+      <app-docx-form *ngIf="inputs" [inputs]="inputs" (result)="onFormResult($event)"></app-docx-form>
+
+    </div>
+</div>

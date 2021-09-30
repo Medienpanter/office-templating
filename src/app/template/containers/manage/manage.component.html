@@ -1,0 +1,12 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <app-document-list *ngIf="(documentsState$ | async) as documents"
+                       [documents]="documents"
+                       (removeDoc)="deleteDocument($event)">
+    </app-document-list>
+    <button class="btn btn-info pull-right" (click)="openDocumentCreateDialog()">
+      <span class="btn-label"><i class="material-icons">add</i></span>
+      Add document
+    </button>
+  </div>
+</div>

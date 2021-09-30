@@ -1,0 +1,18 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <ng-container *ngIf="(document$| async) as document">
+      <div>Id: {{document._id}}</div>
+      <div>Author: {{document.author}}</div>
+      <div>Name: {{document.name}}</div>
+      <div *ngIf="(document.versions| slice:-1)[0] as lastVersion">
+        <span>Last version id: {{lastVersion._id}}</span>
+      </div>
+      <div *ngFor="let registration of document.registrations">
+        {{registration._id}} - {{registration.version}} - {{registration.createdAt}}
+      </div>
+    </ng-container>
+    <button class="btn btn-success" (click)="addNewRegistration()">Add new data</button>
+
+    <app-docx-form *ngIf="inputs" [inputs]="inputs" (result)="onFormResult($event)"></app-docx-form>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-icon" data-background-color="rose">
+        <i class="material-icons">assignment</i>
+      </div>
+      <div class="card-content">
+        <h4 class="card-title">My documents</h4>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>Name</th>
+              <th>Version</th>
+              <th>Create at</th>
+              <th>Update at</th>
+              <th class="text-right">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let document of documents">
+              <td>{{document.name}}</td>
+              <td *ngIf="(document.versions| slice:-1)[0] as lastVersion">
+                {{lastVersion.majorVersion}}.{{lastVersion.minorVersion}}
+              </td>
+              <td>{{document.createdAt | date}}</td>
+              <td>{{document.updatedAt | date}}</td>
+              <td class="td-actions text-right">
+                <button type="button" class="btn btn-info" matTooltip="Add new version" matTooltipPosition="left">
+                  <i class="material-icons">add</i>
+                </button>
+                <button type="button" class="btn btn-success" matTooltip="Edit" matTooltipPosition="left">
+                  <i class="material-icons">edit</i>
+                </button>
+                <button type="button" (click)="removeDocument(document._id)" class="btn btn-danger" matTooltip="Remove" matTooltipPosition="left">
+                  <i class="material-icons">close</i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

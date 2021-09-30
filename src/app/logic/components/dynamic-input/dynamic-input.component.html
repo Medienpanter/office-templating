@@ -1,0 +1,70 @@
+<div [formGroup]="form">
+
+  <div [ngSwitch]="input.type">
+
+    <ng-container *ngSwitchCase="InputType.Text">
+      <div class="form-group label-floating">
+        <label class="control-label">{{input.name}}</label>
+        <input class="form-control" [formControlName]="input.name" type="text">
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="InputType.Select">
+      <mat-form-field>
+        <mat-select placeholder="{{input.name}}" [formControlName]="input.name">
+          <mat-option *ngFor="let option of input.options" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+   <ng-container *ngSwitchCase="InputType.Date">
+     <label [attr.for]="input.name">{{input.name}}</label>
+       <mat-datepicker-toggle matSuffix [for]="resultPicker"></mat-datepicker-toggle>
+       <mat-input-container>
+         <input matInput
+                [formControlName]="input.name"
+                [matDatepicker]="resultPicker"
+                placeholder="Pick a day">
+       </mat-input-container>
+       <mat-datepicker
+         #resultPicker
+         [touchUi]="'false'"
+         [startView]="'month'">
+       </mat-datepicker>
+   </ng-container>
+
+    <ng-container *ngSwitchCase="InputType.Checkbox">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" [formControlName]="input.name">{{input.name}}
+        </label>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="InputType.Textarea">
+      <div class="form-group label-floating">
+        <label class="control-label">{{input.name}}</label>
+        <textarea class="form-control" [formControlName]="input.name" rows="5"></textarea>
+      </div>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="InputType.Number">
+      <div class="form-group label-floating">
+        <label class="control-label">{{input.name}}</label>
+        <input class="form-control" [formControlName]="input.name" type="number">
+      </div>
+    </ng-container>
+
+  </div>
+
+  <ng-container *ngIf="form.controls[input.name].touched">
+    <div class="error" *ngIf="form.controls[input.name].hasError('required')">This field is required.</div>
+    <div class="error" *ngIf="form.controls[input.name].hasError('min')">Value is too low.</div>
+    <div class="error" *ngIf="form.controls[input.name].hasError('max')">Value is too high.</div>
+    <div class="error" *ngIf="form.controls[input.name].hasError('minlength')">Value is too short.</div>
+    <div class="error" *ngIf="form.controls[input.name].hasError('maxlength')">Value is too long.</div>
+  </ng-container>
+
+</div>
